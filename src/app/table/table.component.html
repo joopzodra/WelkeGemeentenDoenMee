@@ -1,0 +1,27 @@
+<div>
+  <form #form='ngForm' class='w3-border'>    
+    <input type='search' #search name='query' ngModel placeholder='Zoek gemeente ...' class='w3-input w3-border-0'>
+    <button (click)='form.setValue({query: ""})' class='w3-button w3-light-gray'>&times;</button>
+  </form>
+</div>
+<div id='table-container'>
+  <table class='w3-table w3-bordered'>
+    <tr *ngFor='let row of queriedData$ | async' (click)='showDialogModal(row)'>
+      <td>{{row.MUN_NAME}}</td>
+      <td><span class='square' [ngClass]='translate(row.ISIN)'></span></td>
+      <td>{{row.ISIN}}</td>
+    </tr>
+  </table>
+</div>
+<div *ngIf='dataErr$ | async' class='w3-modal error-modal'>
+  <div class="w3-modal-content">
+    <header class='w3-container soft-yellow'>      
+      <h2>Fout</h2>
+    </header>
+    <div class="w3-container">
+      <p>Fout bij het laden van data. Probeer het opnieuw.</p>
+      <button (click)='reload()' class='w3-button reload-button'>Opnieuw</button>
+    </div>   
+  </div>
+</div>
+<jr-dialog-modal *ngIf='modalDisplay' [municData]='municData' (hideModal)='hideDialogModal($event)'></jr-dialog-modal>

@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'w3';
+@import 'variables';
+
+/* Error modal */
+.error-modal {
+  display: block;
+  .soft-yellow {
+    background-color: $soft-yellow;
+    color: $dark-grey;
+  }
+}
+.reload-button {
+  background-color: $dark-green;
+  color: $light-grey;
+  margin-bottom: 16px;
+  float: right;
+}

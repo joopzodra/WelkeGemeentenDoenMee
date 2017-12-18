@@ -1,0 +1,23 @@
+<div #viz id='viz'></div>
+<div *ngIf='featuresError || (dataErr$ | async)' class='w3-modal error-modal'>
+  <div class="w3-modal-content">
+    <header class='w3-container soft-yellow'>      
+      <h2>Fout</h2>
+    </header>
+    <div class="w3-container error-content">
+      <p>Fout bij het laden van data. Probeer het opnieuw.</p>
+      <button (click)='reload()' class='w3-button reload-button'>Opnieuw</button>
+    </div>   
+  </div>
+</div>
+<table id='legend' class='w3-section'>
+  <tr>
+    <td><span class="yes"></span>doet mee</td>
+    <td><span class="maybe"></span>heeft belangstelling</td>
+  </tr>
+  <tr>
+    <td ><span class="no"></span>doet niet mee</td>
+    <td><span class="unknown"></span>onbekend</td>
+  </tr>
+</table>
+<jr-dialog-modal *ngIf='modalDisplay' [municData]='municData' (hideModal)='hideDialogModal($event)'></jr-dialog-modal>

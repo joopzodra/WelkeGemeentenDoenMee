@@ -1,0 +1,39 @@
+@import '~variables.scss';
+form {
+  display: flex;
+}
+input {
+  font-size: 12px;
+}
+#table-container {
+  font-size: 11px;
+  td {
+    padding: 6px 8px !important;
+  }
+}
+.square {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  &.yes {
+    background-color: $yes-color;
+  }
+  &.maybe {
+    background-color: $maybe-color;
+  }  
+  &.no {
+    background-color: $no-color;
+  }  
+  &.unknown {
+    background-color: $unknown-color;
+  }
+}
+
+@media (min-width: 601px) {
+  input {
+    font-size: inherit;
+  }
+  #table-container {
+  font-size: 13px;    
+  } 
+}

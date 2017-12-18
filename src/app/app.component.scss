@@ -1,0 +1,95 @@
+@import '~variables.scss';
+
+/* HEADER */
+header {
+  background-color: $dark-green;
+  color: $light-grey;
+  position: fixed;
+  width: 100%;
+  top:  0;
+  height: 40px;
+  z-index: 1000;
+}
+.title-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.back {
+  text-decoration: none;
+}
+h1 {
+  font-weight: 300;
+  font-size:  14px;
+  text-align: center;
+  -webkit-flex: 1 1 275px;
+  flex: 1 1 275px;
+  margin: 5px 0px 5px 20px;
+  line-height: normal;
+}
+.title-container p {
+  -webkit-flex: 1 1 85px;
+  flex: 1 1 85px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 4px;
+  margin: 5px 0;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 4px;
+  font-size: 0.8em;
+  color: $light-grey;
+}
+
+/* BUTTONS AND CONTENT */
+#buttons-and-content-container {
+  max-width: 600px;
+  margin: 0px auto;
+  position: relative;
+}
+
+/* BUTTONS */
+#buttons-container {
+  margin-top: 48px;
+  margin-bottom: 8px;
+}
+#switch-content-buttons, #data-buttons {
+  display: inline-block;
+}
+ #data-buttons {
+  float: right;
+}
+.w3-button {
+  padding: 8px 12px;
+}
+#switch-content-buttons button {
+  background-color: $soft-yellow !important;
+  color: $dark-grey;
+  border: 1px solid $dark-grey;
+}
+#data-buttons button{
+  background-color: $light-grey !important;
+  color: $dark-grey;
+  border: 1px solid $dark-grey;
+}
+
+
+/* CONTENT */
+
+/* ALL */
+@media (min-width: 548px) {
+  header {
+    height: 56px;
+  }
+  h1 {
+    font-size: 28px;
+    margin: 10px 20px 10px 0;
+  } 
+  .title-container p {
+    font-size: 1em;
+    margin: 12px 0;
+  }
+  #buttons-container {
+    margin-top: 72px;
+    margin-bottom: 16px;
+  }
+}

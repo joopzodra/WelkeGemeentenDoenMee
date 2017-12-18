@@ -1,0 +1,86 @@
+@import '~variables.scss'; 
+
+/* Map */
+/deep/ #map-container {
+ position: relative; 
+ height: 0; 
+ width: 100%;
+ border: 1px solid #000;
+}
+/deep/ svg {
+  position: absolute; 
+  width: 100%;
+  height: 100%;
+  left: 0; 
+  top: 0;
+  font-family: 'Lato', Arial,"Trebuchet MS",sans-serif;
+}
+/deep/ .label {
+  font-size: 8px;
+  text-anchor: middle;
+  cursor: pointer;
+  pointer-events: none;
+}
+/deep/ path {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 0.5;
+  cursor: pointer;
+}
+/deep/ path.yes {
+  fill: $yes-color;
+}
+/deep/ path.maybe {
+  fill: $maybe-color;
+}
+/deep/ path.no {
+  fill: $no-color;
+}
+/deep/ path.unknown {
+  fill: $unknown-color;
+}
+
+/* Legend */
+#legend {
+  font-size: 11px;
+}
+#legend span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  transform: translate(0px, 3px);
+  margin-right: 5px;
+}
+td {
+  padding-right: 16px; 
+}
+.yes {
+  background-color: $yes-color;
+}
+.maybe {
+  background-color: $maybe-color;
+}
+.no {
+  background-color: $no-color;
+}
+.unknown {
+  background-color: $unknown-color;
+}
+
+/* Media queries */
+@media (min-width: 601px) {
+  #legend {
+    font-size: 13px;
+  }
+  #legend span {
+    width: 16px;
+    height: 16px;
+  }
+}
+@media (min-width: 1300px) {
+  #legend {
+    position: absolute;
+    top: 110px;
+    left: 610px;
+  }
+}

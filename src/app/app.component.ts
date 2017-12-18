@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import {DataService } from './data-service/data.service'
 
 @Component({
   selector: 'jr-root',
@@ -6,5 +8,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'jr';
+  
+  map = 'block';
+  table = 'none';
+
+  constructor(private dataService: DataService) { }
+
+  showMap() {
+    this.map = 'block';
+    this.table = 'none';
+  }
+
+  showTable() {
+    this.table = 'block';
+    this.map = 'none';
+  }
+
+  clearData() {
+    this.dataService.clearData();
+  }
+
+  demoData() {
+    this.dataService.demoData();
+  }
 }

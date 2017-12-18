@@ -1,0 +1,35 @@
+<div class='w3-modal' id='dialog-modal'>
+  <div class='w3-modal-content'>
+    <header class='w3-container soft-yellow'>      
+      <h2>{{municData.MUN_NAME}}</h2>
+    </header>
+    <div class='w3-container w3-margin'>
+      <form #form='ngForm' (ngSubmit)='save(form.value.isin)'>
+        <div class='w3-section'>
+          <label class='color-block yes' for='yes-input'></label>
+          <input class='w3-radio' type='radio' name='isin' value='yes' id='yes-input' [ngModel]='municData.ISIN'>
+          <label for='yes-input'>doet mee</label>
+        </div>
+        <div class='w3-section'>
+          <label class='color-block maybe' for='maybe-input'></label>
+          <input class='w3-radio' type='radio' name='isin' value='maybe' id='maybe-input' [ngModel]='municData.ISIN'>
+          <label for='maybe-input'>heeft belangstelling</label>
+        </div>
+        <div class='w3-section'>
+          <label class='color-block no' for='no-input'></label>
+          <input class='w3-radio' type='radio' name='isin' value='no' id='no-input' [ngModel]='municData.ISIN'>
+          <label for='no-input'>doet niet mee</label> 
+        </div>
+        <div class='w3-section'>
+          <label class='color-block unknown' for='unknown-input'></label>
+          <input class='w3-radio' type='radio' name='isin' value='unknown' id='unknown-input' [ngModel]='municData.ISIN'>
+          <label for='unknown-input'>onbekend</label> 
+        </div>
+        <div class='w3-section'>
+          <button type='button' (click)='cancel()' class='w3-button w3-light-grey w3-border'><span class='w3-text-red'>&#10006;</span> Annuleer</button>
+          <button type='submit' class='w3-button w3-light-grey w3-border'><span class='w3-text-green'>&#10004;</span> Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
