@@ -1,13 +1,13 @@
-<div id='canvas-container'>
+<div #container id='canvas-container'>
+  <canvas id="canvas" #canvas></canvas>
 </div>
-<div #viz id='viz'></div>
-<div *ngIf='featuresError || (dataErr$ | async)' class='w3-modal error-modal'>
+<div *ngIf='featuresError || dataErr$ | async' class='w3-modal error-modal'>
   <div class="w3-modal-content">
     <header class='w3-container soft-yellow'>      
       <h2>Fout</h2>
     </header>
     <div class="w3-container error-content">
-      <p>Fout bij het laden van data. Probeer het opnieuw.</p>
+      <p>Fout bij het laden van de kaart of de data. Probeer het opnieuw.</p>
       <button (click)='reload()' class='w3-button reload-button'>Opnieuw</button>
     </div>   
   </div>

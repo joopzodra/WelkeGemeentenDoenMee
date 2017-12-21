@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {DataService } from './data-service/data.service'
+import { DataService } from './data-service/data.service'
 
 @Component({
   selector: 'jr-root',
@@ -8,9 +8,10 @@ import {DataService } from './data-service/data.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+
   map = 'block';
   table = 'none';
+  csvModalDisplay = false;
 
   constructor(private dataService: DataService) { }
 
@@ -31,4 +32,13 @@ export class AppComponent {
   demoData() {
     this.dataService.demoData();
   }
+
+  showCsvModal() {
+    this.csvModalDisplay = true;
+  }
+
+  hideCsvModal() {
+    this.csvModalDisplay = false;
+  }
+
 }

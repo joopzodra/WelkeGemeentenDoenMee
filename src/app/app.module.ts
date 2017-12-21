@@ -9,7 +9,11 @@ import { TableComponent } from './table/table.component';
 
 import { DataService } from './data-service/data.service'
 import { DataStore } from './data-store/data.store';
+//import { Throttler } from './helpers/throttler'
 import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
+import { CanvasMapComponent } from './canvas-map/canvas-map.component';
+import { PanelAnimationDirective } from './helpers/panel-animation.directive';
+import { CsvModalComponent } from './csv-modal/csv-modal.component';
 
 
 @NgModule({
@@ -18,6 +22,9 @@ import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
     MapComponent,
     TableComponent,
     DialogModalComponent,
+    CanvasMapComponent,
+    PanelAnimationDirective,
+    CsvModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,8 @@ import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
   ],
   providers: [
     DataService,
-    DataStore
+    DataStore,
+    /*Throttler*/
   ],
   bootstrap: [AppComponent]
 })

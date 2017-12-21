@@ -1,0 +1,15 @@
+@import '~variables.scss';
+
+#download-csv-modal {
+  display: block !important;
+}
+.soft-yellow {
+  background-color: $soft-yellow;
+  color: $dark-grey;
+}
+.w3-modal h2 {
+  font-size: 24px;
+}
+#download-button {
+  float: right;
+}

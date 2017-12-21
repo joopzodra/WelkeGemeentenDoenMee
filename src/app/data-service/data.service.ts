@@ -11,14 +11,18 @@ import { DataStore, LOAD, EDIT } from '../data-store/data.store'
 @Injectable()
 export class DataService {
 
-  public featureCollection$: Observable<FeatureCollection>
-  public municipalityData$: Observable<MunicipalityData[]>
-  public dataErr$ = new BehaviorSubject<boolean>(false)
+  public featureCollection$: Observable<FeatureCollection>;
+  public municipalityData$: Observable<MunicipalityData[]>;
+  public dataErr$ = new BehaviorSubject<boolean>(false);
+  public municipalityData: MunicipalityData[];
 
   constructor(private http: Http, private dataStore: DataStore) {
     this.getTopology();
     this.municipalityData$ = this.dataStore.data$;
-    this.dataStore.data$.subscribe(data => this.storeLocal(data))
+    this.dataStore.data$.subscribe(data => {
+      this.storeLocal(data);
+      this.municipalityData = data;
+    })
   }
 
   private getTopology() {
@@ -31,9 +35,14 @@ export class DataService {
     return this.http.get('assets/gem-2016-data.csv')
       .do(() => this.dataErr$.next(false))
       .map(res => res.text().split('\n'))
-      .map(rows => rows.map(row => row.split(',')))
+      .map(rows => rows.map(row => row.split(';')))
       .do(rows => rows.shift()) // delete first row with column names     
-      .map((rows): MunicipalityData[] => rows.map((row) => ({ MUN_CODE: row[0], MUN_NAME: row[1], ISIN: row[2] })));
+      .map((rows): MunicipalityData[] => rows.map((row) => ({ MUN_CODE: row[0], MUN_NAME: row[1], ISIN: row[2] })))
+      .map(data => data.sort((a, b) => {
+        const nameA = a.MUN_NAME.toLowerCase().replace('\'s-', ''); // the replace regex is to orden e.g. 's-Gravenhage on G
+        const nameB = b.MUN_NAME.toLowerCase().replace('\'s-', '');
+        return nameA < nameB ? -1 : 1;
+      }));
   }
 
   public getData() {

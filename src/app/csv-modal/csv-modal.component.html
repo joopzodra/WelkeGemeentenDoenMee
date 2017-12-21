@@ -1,0 +1,14 @@
+<div class='w3-modal' id='download-csv-modal'>
+  <div class='w3-modal-content'>
+    <div class='w3-container soft-yellow'>      
+      <h2>Data downloaden</h2>
+    </div>
+    <div class='w3-container w3-margin'>
+      <p>Wil je de data downloaden als csv-bestand?</p>
+        <div class='w3-section'>
+          <button (click)='cancel()' class='w3-button w3-small w3-light-grey w3-border'><span class='w3-text-red'>&#10006;</span> Annuleer</button>
+          <button (click)='download()' id='download-button' class='w3-button w3-small w3-light-grey w3-border'><span class='w3-text-green'>&#10004;</span> Download</button>
+        </div>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,9 @@
     color: $dark-grey;
   }
 }
+input, label {
+  cursor: pointer;
+}
 .yes {
   background-color: $yes-color;
 }
@@ -31,4 +34,8 @@
 }
 .unknown {
   background-color: $unknown-color;
+}
+
+#submit-button {
+  float: right;
 }

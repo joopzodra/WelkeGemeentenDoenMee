@@ -15,10 +15,13 @@
     <div id='data-buttons'>
       <button (click)='clearData()' class='w3-button w3-tiny'>Wis data</button>
       <button (click)='demoData()' class='w3-button w3-tiny'>Demo data</button>
+      <button (click)='showCsvModal()' class='w3-button w3-tiny'>CSV</button>
     </div>
   </div>
   <div id='content-container'>
-    <jr-map [style.display]='map'></jr-map>
+<!--     <jr-canvas-map [style.display]='map'></jr-canvas-map>
+ -->    <jr-map [style.display]='map'></jr-map>
     <jr-table [style.display]='table'></jr-table>
   </div>
 </div>
+<jr-csv-modal *ngIf='csvModalDisplay' (hideModal)='hideCsvModal()'></jr-csv-modal>

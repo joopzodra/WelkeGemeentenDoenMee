@@ -1,9 +1,38 @@
 @import '~variables.scss';
-form {
+#searchbar {
   display: flex;
+
 }
 input {
+  font-size: 16px;
+}
+#filter-checks {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  padding-left: 16px;
+}
+#filterbar {
+  margin-top: 8px;
+}
+#filterbar button {
+  height: 100%;
+}
+#filter-toggle {
+  margin-top: 8px;
+}
+button:hover {
+  background-color: #f1f1f1 !important;
+}
+button, tr, input[type='checkbox'], label {
+  cursor: pointer;
+}
+label {
   font-size: 12px;
+}
+#filter-toggle {
+  font-size: 12px;
+  padding: 4px 8px;
 }
 #table-container {
   font-size: 11px;
@@ -28,11 +57,20 @@ input {
     background-color: $unknown-color;
   }
 }
+@media(max-width: 600px) {
+  #searchbar {
+    height: 30px;
+  }
+  input[type='search'] {
+    height: 28px;
+    padding: 0 8px;
+  }
+  #searchbar button {
+    padding: 3px 16px;
+  }
+}
 
 @media (min-width: 601px) {
-  input {
-    font-size: inherit;
-  }
   #table-container {
   font-size: 13px;    
   } 

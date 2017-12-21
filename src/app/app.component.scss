@@ -55,11 +55,11 @@ h1 {
 #switch-content-buttons, #data-buttons {
   display: inline-block;
 }
- #data-buttons {
+#data-buttons {
   float: right;
 }
 .w3-button {
-  padding: 8px 12px;
+  padding: 8px 6px;
 }
 #switch-content-buttons button {
   background-color: $soft-yellow !important;
@@ -71,9 +71,6 @@ h1 {
   color: $dark-grey;
   border: 1px solid $dark-grey;
 }
-
-
-/* CONTENT */
 
 /* ALL */
 @media (min-width: 548px) {

@@ -7,6 +7,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { DataService } from '../data-service/data.service'
 import { FeatureCollection, Feature, MunicipalityData } from '../models/models'
 import { translate } from '../helpers/translate'
+import { throttler } from '../helpers/throttler'
+
+/* If you want to use both canvas-map and svg-map you have to uncomment this line in the canvas map component:
+ *     this.dataService.getData();
+ *     Otherwise the pathes in the svg map won't be colored properly.
+*/
 
 @Component({
   selector: 'jr-map',
@@ -23,10 +29,13 @@ export class MapComponent implements OnInit {
   pathElements: any;
   svg: any;
   svgInner: any;
+  labels: any;
   modalDisplay = false;
-  municData: MunicipalityData
+  municData: MunicipalityData;
+  width = 600;
+  height = 715;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService ) { }
 
   ngOnInit() {
     this.dataService.featureCollection$.subscribe(
@@ -46,36 +55,28 @@ export class MapComponent implements OnInit {
 
   setSvg() {
     const viz = this.viz.nativeElement;
-    const margin = {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    };
-    const width = 600 - margin.left - margin.right;
-    const height = 800 - margin.top - margin.bottom;
     const mapContainer = d3.select(viz).append('div')
       .attr('id', 'map-container')
-      .style('padding-bottom', 100 * (height + margin.top + margin.bottom) / (width + margin.left + margin.right) + '%');
+      .style('padding-bottom', (100 * this.height / this.width) + '%');
     this.svg = mapContainer.append('svg')
-      .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-      .append('g')
-      .attr('id', 'margins-container')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+      .attr('viewBox', `0 0 ${this.width} ${this.height}`);
     this.svgInner = this.svg.append('g')
       .attr('id', 'svg-inner-container');
-    const zoomed = () => { console.log(d3.event)
-      this.svgInner.attr('transform', d3.event.transform)
+    const zoomed = (d3Event: any) => {
+      this.svgInner.attr('transform', d3Event.transform); console.log(d3Event.transform.k)
+      this.setLabelFontSize(d3Event);
     }
     const zoom: any = d3.zoom();
-    zoom.scaleExtent([1, 3])
-      .on('zoom', zoomed);
+    zoom.extent([[0, 0], [this.width, this.height]])
+    zoom.scaleExtent([1, 12])
+    zoom.translateExtent([[0, 0], [this.width, this.height]])
+      .on('zoom', () => throttler(zoomed, d3.event));
     this.svg.call(zoom);
   }
 
   drawMap(featureCollection: FeatureCollection) {
     const xym = d3.geoMercator()
-      .center([6.46, 52.77])
+      .center([6.46, 52.6])
       .scale(8800);
     const geoPath = d3.geoPath(xym);
     this.pathElements = this.svgInner.append('g')
@@ -86,10 +87,11 @@ export class MapComponent implements OnInit {
       .append('path')
       .attr('d', geoPath)
       .on('click', (d: any, i: number) => this.showDialogModal(d, i))
+      .on('click.zoom', (): null => null);
 
     this.dataService.getData();
 
-    this.svgInner.append('g')
+    this.labels = this.svgInner.append('g')
       .attr('id', 'labels')
       .selectAll('.label')
       .data(featureCollection.features)
@@ -103,9 +105,21 @@ export class MapComponent implements OnInit {
   }
 
   setPathClass(data: MunicipalityData[]) {
-    this.pathElements.each(function(d: any, i: number) {
-      d3.select(this).attr('class', translate(data[i].ISIN))
+    this.pathElements.each(function(d: Feature) {
+      const municCode = d.properties.GM_CODE;
+      const municipality = data.find(datum => datum.MUN_CODE === municCode);
+      d3.select(this).attr('class', translate(municipality.ISIN))
     });
+  }
+
+  setLabelFontSize(d3Event: any) {
+    const scale = d3Event.transform.k;
+    this.labels.style('font-size', 8/(Math.sqrt(scale)) + 'px');
+    if (scale > 7) {
+      this.labels.text((d: Feature) => d.properties.GM_NAAM);
+    } else {
+      this.labels.text((d: Feature) => d.properties.GM_NAAM.slice(0, 3));
+    } 
   }
 
   showDialogModal(d: Feature, i: number) {

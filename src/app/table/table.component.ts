@@ -17,7 +17,6 @@ import { translate } from '../helpers/translate'
 })
 export class TableComponent implements OnInit {
 
-  dataError = false;
   queriedData$: Observable<MunicipalityData[]>;
   dataErr$: BehaviorSubject<boolean>;
   @ViewChild(NgForm) form: NgForm;
@@ -29,14 +28,45 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     const data$ = this.dataService.municipalityData$;
-    const formStream$ = this.form.valueChanges
-      .map(formValue => formValue.query);
+    const formStream$ = this.form.valueChanges;
     this.queriedData$ = Observable.combineLatest(data$, formStream$)
-      .map(([data, query]) => {
-        const regex = new RegExp(query, 'i');
-        return data.filter(d => regex.test(d.MUN_NAME));
+      .map(([data, formValue]) => {
+        const regex = new RegExp(formValue.query, 'i');
+        data = data.filter(d => regex.test(d.MUN_NAME));
+        if (!(formValue.yes || formValue.maybe || formValue.no || formValue.unknown)) {
+          return data;
+        }
+        let dataYes: MunicipalityData[] = [];
+        let dataMaybe: MunicipalityData[] = [];
+        let dataNo: MunicipalityData[] = [];
+        let dataUnknown: MunicipalityData[] = [];
+        let dataConcat: MunicipalityData[] = [];
+        if (formValue.yes) {
+          dataYes = data.filter(d => d.ISIN === translate('yes'));
+        }
+        if (formValue.maybe) {
+          dataMaybe = data.filter(d => d.ISIN === translate('maybe'));
+        }
+        if (formValue.no) {
+          dataNo = data.filter(d => d.ISIN === translate('no'));
+        }
+        if (formValue.unknowm) {
+          dataUnknown = data.filter(d => d.ISIN === translate('unknown'));
+        }
+        return dataConcat.concat(dataYes, dataMaybe, dataNo, dataUnknown);
       });
     this.dataErr$ = this.dataService.dataErr$;
+  }
+
+  clearSearch() {
+    const formValue = this.form.value;
+    formValue.query = '';
+    this.form.setValue(formValue);
+  }
+
+  clearFilter() {
+    const query = this.form.value.query;
+    this.form.setValue({query: query, yes: '', maybe: '', no: '', unknown: ''});
   }
 
   showDialogModal(row: MunicipalityData) {

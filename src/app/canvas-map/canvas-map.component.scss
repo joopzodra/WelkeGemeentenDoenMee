@@ -1,0 +1,51 @@
+@import '~variables.scss'; 
+
+/* Map */
+/deep/ canvas {
+  border: 1px solid #000;
+}
+
+/* Legend */
+#legend {
+  font-size: 11px;
+}
+#legend span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  transform: translate(0px, 3px);
+  margin-right: 5px;
+}
+td {
+  padding-right: 16px; 
+}
+.yes {
+  background-color: $yes-color;
+}
+.maybe {
+  background-color: $maybe-color;
+}
+.no {
+  background-color: $no-color;
+}
+.unknown {
+  background-color: $unknown-color;
+}
+
+/* Media queries */
+@media (min-width: 601px) {
+  #legend {
+    font-size: 13px;
+  }
+  #legend span {
+    width: 16px;
+    height: 16px;
+  }
+}
+@media (min-width: 1300px) {
+  #legend {
+    position: absolute;
+    top: 110px;
+    left: 610px;
+  }
+}

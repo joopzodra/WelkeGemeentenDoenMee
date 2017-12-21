@@ -1,8 +1,34 @@
-<div>
-  <form #form='ngForm' class='w3-border'>    
-    <input type='search' #search name='query' ngModel placeholder='Zoek gemeente ...' class='w3-input w3-border-0'>
-    <button (click)='form.setValue({query: ""})' class='w3-button w3-light-gray'>&times;</button>
+<div id='form'>
+  <form #form='ngForm'>
+    <div id='searchbar' class='w3-border'>    
+      <input type='search' #search name='query' ngModel placeholder='Zoek gemeente ...' class='w3-input w3-border-0'>
+      <button (click)='clearSearch()' class='w3-button w3-light-gray'>&times;</button>
+    </div>
+    <div id='filterbar' class='w3-border' #panelAnimation='panelAnimation' jrPanelAnimation>
+      <div id='filter-checks'>
+        <div>
+          <input id='yes-check' type='checkbox' name='yes' ngModel class='w3-check'>
+          <label for='yes-check'>ja</label>
+        </div>
+        <div>
+          <input id='maybe-check' type='checkbox' name='maybe' ngModel class='w3-check'>
+          <label for='maybe-check'>belangstelling</label>
+        </div>
+        <div> 
+          <input id='no-check' type='checkbox' name='no' ngModel class='w3-check'>
+          <label for='no-check'>nee</label>
+        </div>
+        <div>
+          <input id='unknown-check' type='checkbox' name='unknown' ngModel class='w3-check'>
+          <label for='unknown-check'>onbekend</label>
+        </div>
+        <div>
+          <button (click)='clearFilter(); panelAnimation.toggleElement()' class='w3-button w3-light-gray'>&times;</button>
+        </div>
+      </div>
+    </div>
   </form>
+  <div id='filter-toggle' class='w3-border' *ngIf='panelAnimation.showElementButton' (click)='panelAnimation.toggleElement()'>filter &#x25BE;</div>
 </div>
 <div id='table-container'>
   <table class='w3-table w3-bordered'>
