@@ -8,7 +8,7 @@ export class PanelAnimationDirective {
 
   visible = false;
   showElementButton = true;
-  PANEL_ANIMATION_DELAY = 15; /*ms*/
+  PANEL_ANIMATION_DELAY = 10; /*ms*/
   PANEL_ANIMATION_STEPS = 10;
 
   constructor(private elementRef: ElementRef) {

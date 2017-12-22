@@ -50,7 +50,7 @@ export class TableComponent implements OnInit {
         if (formValue.no) {
           dataNo = data.filter(d => d.ISIN === translate('no'));
         }
-        if (formValue.unknowm) {
+        if (formValue.unknown) {
           dataUnknown = data.filter(d => d.ISIN === translate('unknown'));
         }
         return dataConcat.concat(dataYes, dataMaybe, dataNo, dataUnknown);

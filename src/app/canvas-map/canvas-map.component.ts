@@ -8,13 +8,14 @@ import { Observable } from 'rxjs/Observable'
 import { DataService } from '../data-service/data.service'
 import { FeatureCollection, Feature, MunicipalityData, MergedFeature, MergedFeatureCollection } from '../models/models'
 import { translate } from '../helpers/translate'
-import { throttler } from '../helpers/throttler'
+import { Throttler } from '../helpers/throttler'
 import { genColor } from '../helpers/color-generator'
 
 @Component({
   selector: 'jr-canvas-map',
   templateUrl: './canvas-map.component.html',
-  styleUrls: ['./canvas-map.component.scss']
+  styleUrls: ['./canvas-map.component.scss'],
+  providers: [Throttler]
 })
 export class CanvasMapComponent implements OnInit, AfterViewInit {
 
@@ -52,7 +53,7 @@ export class CanvasMapComponent implements OnInit, AfterViewInit {
   y = 0;
   responsiveShrinking = 1;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private throttler: Throttler) {
     window.addEventListener('resize', () => {
       this.onContainerResize();
     })
@@ -79,7 +80,7 @@ export class CanvasMapComponent implements OnInit, AfterViewInit {
       },
       err => this.featuresError = true
       );
-    this.dataService.getData();
+    //this.dataService.getData(); // UNCOMMENT THIS LINE IF YOU USE THIS COMPONENT INSTEAD OF THE SVG MAP COMPONENT
   }
 
   setGeoPath() {
@@ -122,12 +123,12 @@ export class CanvasMapComponent implements OnInit, AfterViewInit {
     zoom.extent([[0, 0], [this.responsiveWidth, this.responsiveHeight]])
       .scaleExtent([1, 8])
       .translateExtent([[0, 0], [this.responsiveWidth, this.responsiveHeight]])
-    //.on('zoom', zoomed)
-      .on('zoom', () => throttler(zoomed, d3.event)) // Throttle to reduce computing on relative slow mobile processors
+      //.on('zoom', zoomed)
+      .on('zoom', () => this.throttler.throttle(zoomed, d3.event)) // Throttle to reduce computing on relative slow mobile processors
     d3.select(this.canvas)
       .call(zoom)
       .on('wheel', () => d3.event.preventDefault())
-      .on('end', () =>  d3.event.preventDefault()) // This allows to check for d3.event.defaultPrevented. After zoom end event d3 also fires a click event. In the this.canvasClicked handler we can check for d3.event.defaultPrevented.  
+      .on('end', () => d3.event.preventDefault()) // This allows to check for d3.event.defaultPrevented. After zoom end event d3 also fires a click event. In the this.canvasClicked handler we can check for d3.event.defaultPrevented.  
       .on('click', () => this.canvasClicked());
   }
 
@@ -240,7 +241,8 @@ export class CanvasMapComponent implements OnInit, AfterViewInit {
     this.inMemContext.restore();
   }
 
-  canvasClicked() { console.log(d3.event)
+  canvasClicked() {
+    console.log(d3.event)
     if (d3.event.defaultPrevented) {
       return;
     }

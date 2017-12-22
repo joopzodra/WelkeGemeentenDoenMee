@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { DataService } from '../data-service/data.service'
 import { FeatureCollection, Feature, MunicipalityData } from '../models/models'
 import { translate } from '../helpers/translate'
-import { throttler } from '../helpers/throttler'
+import { Throttler } from '../helpers/throttler'
 
 /* If you want to use both canvas-map and svg-map you have to uncomment this line in the canvas map component:
  *     this.dataService.getData();
@@ -17,7 +17,8 @@ import { throttler } from '../helpers/throttler'
 @Component({
   selector: 'jr-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  providers: [Throttler]
 })
 export class MapComponent implements OnInit {
 
@@ -34,8 +35,11 @@ export class MapComponent implements OnInit {
   municData: MunicipalityData;
   width = 600;
   height = 715;
+  zoomK = 1;
+  zoomX = 0;
+  zoomY = 0;
 
-  constructor(private dataService: DataService ) { }
+  constructor(private dataService: DataService, private throttler: Throttler) { }
 
   ngOnInit() {
     this.dataService.featureCollection$.subscribe(
@@ -63,14 +67,14 @@ export class MapComponent implements OnInit {
     this.svgInner = this.svg.append('g')
       .attr('id', 'svg-inner-container');
     const zoomed = (d3Event: any) => {
-      this.svgInner.attr('transform', d3Event.transform); console.log(d3Event.transform.k)
+      this.svgInner.attr('transform', d3Event.transform);
       this.setLabelFontSize(d3Event);
     }
     const zoom: any = d3.zoom();
     zoom.extent([[0, 0], [this.width, this.height]])
-    zoom.scaleExtent([1, 12])
+    zoom.scaleExtent([1, 8])
     zoom.translateExtent([[0, 0], [this.width, this.height]])
-      .on('zoom', () => throttler(zoomed, d3.event));
+      .on('zoom', () => this.throttler.throttle(zoomed, d3.event));
     this.svg.call(zoom);
   }
 
@@ -114,16 +118,16 @@ export class MapComponent implements OnInit {
 
   setLabelFontSize(d3Event: any) {
     const scale = d3Event.transform.k;
-    this.labels.style('font-size', 8/(Math.sqrt(scale)) + 'px');
+    this.labels.style('font-size', 8 / (Math.sqrt(scale)) + 'px');
     if (scale > 7) {
       this.labels.text((d: Feature) => d.properties.GM_NAAM);
     } else {
       this.labels.text((d: Feature) => d.properties.GM_NAAM.slice(0, 3));
-    } 
+    }
   }
 
   showDialogModal(d: Feature, i: number) {
-    this.municData = this.data[i];
+    this.municData = this.data.find(datum => datum.MUN_CODE === d.properties.GM_CODE);
     this.modalDisplay = true;
   }
 
