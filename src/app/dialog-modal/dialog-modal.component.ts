@@ -4,6 +4,10 @@ import { DataService } from '../data-service/data.service'
 import { MunicipalityData } from '../models/models'
 import { translate } from '../helpers/translate'
 
+/**
+ * Dialog modal is the user interface for changing the data. There are two selectors <jr-dialog-modal> for this component in the app: one in the map component template, one in the table component template. The dialog appears when the user clicks on a municipality on the map or on a row in the table.
+ */
+
 @Component({
   selector: 'jr-dialog-modal',
   templateUrl: './dialog-modal.component.html',

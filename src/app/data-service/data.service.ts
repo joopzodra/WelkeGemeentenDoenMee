@@ -8,6 +8,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { FeatureCollection, MunicipalityData } from '../models/models'
 import { DataStore, LOAD, EDIT } from '../data-store/data.store'
 
+/**
+ * DataService gets the topology from a geojson file. It gets demo data from a csv file. It stores the demo data in the data store and saves it in the browser's local storage. It handles all changes the user makes in the data. 
+ */
+
 @Injectable()
 export class DataService {
 

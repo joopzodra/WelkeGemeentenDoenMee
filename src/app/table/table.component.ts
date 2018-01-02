@@ -9,6 +9,9 @@ import { DataService } from '../data-service/data.service'
 import { FeatureCollection, Feature, MunicipalityData } from '../models/models'
 import { translate } from '../helpers/translate'
 
+/**
+ * TableComponent shows the data in a table. A searchbar enables the user to filter the data. Clicking on a table row (= a municipality) shows the dialog modal, which enables the user to change the data of the municipality.
+ */
 
 @Component({
   selector: 'jr-table',

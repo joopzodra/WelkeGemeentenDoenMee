@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { DataService } from './data-service/data.service'
 
+/**
+ * AppComponent contains in its template the app buttons bar and handles the button events.
+ */
+
 @Component({
   selector: 'jr-root',
   templateUrl: './app.component.html',

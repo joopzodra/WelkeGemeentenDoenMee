@@ -9,7 +9,10 @@ import { FeatureCollection, Feature, MunicipalityData } from '../models/models'
 import { translate } from '../helpers/translate'
 import { Throttler } from '../helpers/throttler'
 
-/* If you want to use both canvas-map and svg-map you have to uncomment this line in the canvas map component:
+/** 
+ * MapComponent creates an svg and draws the map in it, using the topology it gets from the DataService. It colors the topology according to the data. Clicking on a municipality on the map shows the dialog modal, which enables the user to change the data of the municipality.
+ * 
+ * NB. If you want to use both canvas-map and svg-map you have to uncomment this line in the canvas map component:
  *     this.dataService.getData();
  *     Otherwise the pathes in the svg map won't be colored properly.
 */

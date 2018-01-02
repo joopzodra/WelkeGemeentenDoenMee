@@ -11,6 +11,11 @@ import { translate } from '../helpers/translate'
 import { Throttler } from '../helpers/throttler'
 import { genColor } from '../helpers/color-generator'
 
+/**
+ * CanvasMapComponent is not in use. It's worth keeping this component though, as reference for future canvas attempts. It gives an example of drawing the map on html canvas instead of in svg. It's been made to compare performance of canvas and svg. Canvas appears in this case to be not faster than svg. Beside this, canvas has some disadvantages: unsharp fonts, unsharp lines.
+ * 
+ */
+
 @Component({
   selector: 'jr-canvas-map',
   templateUrl: './canvas-map.component.html',

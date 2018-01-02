@@ -3,6 +3,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from '../data-service/data.service'
 import { MunicipalityData } from '../models/models'
 
+/**
+ * CsvModalComponent handles the modal dialog for downloading the data to a csv file. It also converts the data to a format which can be downloaded as csv file.
+ */
+
 @Component({
   selector: 'jr-csv-modal',
   templateUrl: './csv-modal.component.html',

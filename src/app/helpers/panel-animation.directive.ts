@@ -1,5 +1,9 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 
+/**
+ * Adds a little animation when showing and hiding an html element.
+ */
+
 @Directive({
   selector: '[jrPanelAnimation]',
   exportAs: 'panelAnimation'

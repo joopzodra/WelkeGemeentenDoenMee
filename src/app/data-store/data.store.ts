@@ -1,6 +1,10 @@
 import { Subject } from 'rxjs/Subject'
 import { MunicipalityData } from '../models/models'
 
+/**
+ * DataStore is a redux data store. It has a reduce function to load or edit data. It's the single data source for the app.
+ */
+
 export const LOAD = 'LOAD'
 export const EDIT = 'EDIT'
 
