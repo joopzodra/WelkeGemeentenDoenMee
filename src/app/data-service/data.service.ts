@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http'
+import { HttpClient } from '@angular/common/http'
 import * as d3 from 'd3'
 import * as topojson from 'topojson'
 import { Observable } from 'rxjs/Observable'
@@ -20,7 +20,7 @@ export class DataService {
   public dataErr$ = new BehaviorSubject<boolean>(false);
   public municipalityData: MunicipalityData[];
 
-  constructor(private http: Http, private dataStore: DataStore) {
+  constructor(private http: HttpClient, private dataStore: DataStore) {
     this.getTopology();
     this.municipalityData$ = this.dataStore.data$;
     this.dataStore.data$.subscribe(data => {
@@ -30,15 +30,14 @@ export class DataService {
   }
 
   private getTopology() {
-    this.featureCollection$ = this.http.get('assets/gem-2016.json')
-      .map(res => res.json())
+    this.featureCollection$ = this.http.get<any>('assets/gem-2016.json')
       .map((topo) => topojson.feature(topo, topo.objects["gem-2016-data-wgs84"]));
   }
 
   private getCsv() {
-    return this.http.get('assets/gem-2016-data.csv')
+    return this.http.get('assets/gem-2016-data.csv', {responseType: 'text'})
       .do(() => this.dataErr$.next(false))
-      .map(res => res.text().split('\n'))
+      .map(res => res.split('\n'))
       .map(rows => rows.map(row => row.split(';')))
       .do(rows => rows.shift()) // delete first row with column names     
       .map((rows): MunicipalityData[] => rows.map((row) => ({ MUN_CODE: row[0], MUN_NAME: row[1], ISIN: row[2] })))
