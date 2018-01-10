@@ -10,34 +10,34 @@ import { Directive, ElementRef, Input } from '@angular/core';
 })
 export class PanelAnimationDirective {
 
-  visible = false;
-  showElementButton = true;
-  PANEL_ANIMATION_DELAY = 10; /*ms*/
-  PANEL_ANIMATION_STEPS = 10;
+  private elementVisible = false;
+  private PANEL_ANIMATION_DELAY = 10; /*ms*/
+  private PANEL_ANIMATION_STEPS = 10;
+  private el: HTMLElement
+  public showElementButton = true;
 
   constructor(private elementRef: ElementRef) {
-    const el = this.elementRef.nativeElement;
-    el.style.display = 'none';
-    el.style.overflow = 'hidden';
+    this.el = this.elementRef.nativeElement;
+    this.el.style.display = 'none';
+    this.el.style.overflow = 'hidden';
   }
 
   toggleElement() {
-    if (this.visible === false) {
-      this.visible = true;
+    if (this.elementVisible === false) {
+      this.elementVisible = true;
       this.animateToggle(1);
       this.showElementButton = false;
     } else {
       this.animateToggle(-1);
-      this.visible = false;
+      this.elementVisible = false;
     }
   }
 
   animateToggle(direction: 1 | -1) {
-    const el = this.elementRef.nativeElement;
-    el.style.display = 'block';
-    const contentHeight = el.offsetHeight;
+    this.el.style.display = 'block';
+    const contentHeight = this.el.offsetHeight;
     if (direction === 1) {
-      el.style.height = '0px';
+      this.el.style.height = '0px';
     }
     const stepHeight = contentHeight / this.PANEL_ANIMATION_STEPS;
     setTimeout(() => {
