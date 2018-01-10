@@ -21,6 +21,9 @@ input {
 #filter-toggle {
   margin-top: 8px;
 }
+#filter-toggle:hover {
+  cursor: pointer;
+}
 button:hover {
   background-color: #f1f1f1 !important;
 }
