@@ -31,7 +31,7 @@ export class CsvModalComponent {
       csv += '\n';
     });
     const filename = 'welke-gemeenten-doen-mee.csv';
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, filename);
     this.hideEvent.next();
   }
