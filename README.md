@@ -1,27 +1,29 @@
-# WelkeGemeentenDoenMee
+# Welke gemeenten doen mee? (Which Dutch municipalities are participating?)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+This app helps you to keep record of which Dutch municipalities are participating in a project that you run. You see on a map and in a table if they:
+- do participate ('ja')
+- are interested in participating ('belangstelling')
+- don't want to participate ('nee')
+- have not yet been asked what they want ('onbekend')
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+## Angular
+The app is made with Angular 5. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## App overview
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+**Global overview**
 
-## Further help
+![Global app diagram](documentation/welke-gemeenten-doen-mee-002.jpeg "Global overview")
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**Detailed overview**
+
+![Detailed app diagram](documentation/welke-gemeenten-doen-mee-003.jpeg "Detailed overview")
