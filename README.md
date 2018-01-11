@@ -22,8 +22,8 @@ The app is made with Angular 5. This project was generated with [Angular CLI](ht
 
 **Global overview**
 
-![Global app diagram](documentation/welke-gemeenten-doen-mee-002.jpeg "Global overview")
+![Global app diagram](documentation/welke-gemeenten-doen-mee.002.jpeg "Global overview")
 
 **Detailed overview**
 
-![Detailed app diagram](documentation/welke-gemeenten-doen-mee-003.jpeg "Detailed overview")
+![Detailed app diagram](documentation/welke-gemeenten-doen-mee.003.jpeg "Detailed overview")
